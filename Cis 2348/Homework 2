@@ -1,0 +1,28 @@
+Oluwatodimu Olaleye
+2087951
+
+from datetime import datetime
+
+def process_dates(input_path, output_path):
+    current_date = datetime.now()
+    valid_dates = []
+
+    with open(input_path, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line == "-1":
+                break
+            try:
+                date_object = datetime.strptime(line, "m,d,Y")
+                if date_object <= current_date:
+                    valid_dates.append(date_object.strftime("m/d/Y"))
+            except ValueError:
+                pass
+
+    with open(output_path, 'w') as file:
+        for date in valid_dates:
+            file.write(date + '\n')
+
+input_file_path = 'inputDates.txt'
+output_file_path = 'parsedDates.txt'
+process_dates(input_file_path, output_file_path)
